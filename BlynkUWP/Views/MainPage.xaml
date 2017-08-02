@@ -1,0 +1,51 @@
+﻿<Page
+    x:Class="BlynkUWP.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BlynkUWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource SystemControlBackgroundChromeBlackHighBrush}">
+        <StackPanel Style="{StaticResource SettingsFlyoutSectionStyle}">
+            <Viewbox MaxWidth="300" Margin="20">
+                <StackPanel>
+                    <Image Source="ms-appx:///Assets/Blynk.png" />
+                    <TextBlock Foreground="White" Text="Welcome to BlynkIT"
+                           HorizontalAlignment="Center"/>
+                    <TextBlock Foreground="White" Text="The Unofficial Blynk UWP Client"
+                           HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Viewbox>
+            <Viewbox MaxWidth="300" Margin="20">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                    <TextBox Name="AuthKey" PlaceholderText="Authorization Token"
+                     HorizontalAlignment="Center"
+                     Margin="30"
+                     Padding="5"
+                     FontSize="20"
+                     BorderThickness="5"
+                     BorderBrush="LightCyan"
+                     MinWidth="300"
+                     MinHeight="50"
+                     Background="White"
+                     />
+                    <TextBlock Text="You need to Create a Project on Your Android / iOS Device to get the Authorization Token"
+                           Foreground="White"
+                               Margin="0 0 0 50"/>
+                    <Button Name="Login" Content="Login" Margin="10" Background="Cyan"
+                    Foreground="White"
+                    HorizontalAlignment="Center"
+                    Padding="5"
+                    MinWidth="200"
+                    FontSize="20"
+                    Click="Login_Click"
+                    MinHeight="50" Style="{StaticResource AccentButtonStyle}"
+                    />
+                </StackPanel>
+            </Viewbox>
+        </StackPanel>
+    </Grid>
+</Page>
