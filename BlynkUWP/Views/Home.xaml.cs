@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BlynkLibrary.DataManager;
+using BlynkLibrary.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -23,35 +25,21 @@ namespace BlynkUWP.Views
     /// </summary>
     public sealed partial class Home : Page
     {
+        public Project project { get; set; }
         public Home()
         {
+            
             this.InitializeComponent();
+            project = DataManager.proj;
             //Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested += App_BackRequested;
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        private void Logout_Button_Click(object sender, RoutedEventArgs e)
         {
-            Frame rootFrame = Window.Current.Content as Frame;
-
-            string myPages = "";
-            foreach (PageStackEntry page in rootFrame.BackStack)
-            {
-                myPages += page.SourcePageType.ToString() + "\n";
-            }
-            //stackCount.Text = myPages;
-
-            if (rootFrame.CanGoBack)
-            {
-                // Show UI in title bar if opted-in and in-app backstack is not empty.
-                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
-                    AppViewBackButtonVisibility.Visible;
-            }
-            else
-            {
-                // Remove the UI from the title bar if in-app back stack is empty.
-                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
-                    AppViewBackButtonVisibility.Collapsed;
-            }
+            //await Windows.Storage.ApplicationData.Current.ClearAsync();
+            var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            localSettings.Values.Remove("authToken");
+            this.Frame.Navigate(typeof(MainPage));
         }
     }
 }

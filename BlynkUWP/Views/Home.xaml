@@ -8,11 +8,12 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource SystemControlBackgroundChromeBlackMediumBrush}">
-        <Canvas CanDrag="True">
-            <Button Content="Test Button" CanDrag="True"
-                    Background="cyan"
-                    Foreground="White"/>
-        </Canvas>
-
+        
+        <CommandBar Background="Cyan">
+            <AppBarButton Name="Logout_Button" Label="Logout"
+                          HorizontalAlignment="Right" 
+                          Icon="Redo" Content="Logout"
+                          Click="Logout_Button_Click"/>
+        </CommandBar>
     </Grid>
 </Page>

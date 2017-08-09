@@ -14,6 +14,9 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Windows.ApplicationModel.Core;
+using Windows.Storage;
+using BlynkUWP.Views;
 
 namespace BlynkUWP
 {
@@ -22,6 +25,7 @@ namespace BlynkUWP
     /// </summary>
     sealed partial class App : Application
     {
+        public string authToken;
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -54,6 +58,8 @@ namespace BlynkUWP
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
+            //IPropertySet roamingProperties = Application.Current.RoamingSettings.Values();
+            IPropertySet roamingProperties = Windows.Storage.ApplicationData.Current.RoamingSettings.Values;
             Frame rootFrame = Window.Current.Content as Frame;
             Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested += App_BackRequested;
             // Do not repeat app initialization when the Window already has content,
@@ -74,18 +80,52 @@ namespace BlynkUWP
                 Window.Current.Content = rootFrame;
             }
 
-            if (e.PrelaunchActivated == false)
+            if (roamingProperties.ContainsKey("HasBeenHereBefore"))
             {
-                if (rootFrame.Content == null)
+                try
                 {
-                    // When the navigation stack isn't restored navigate to the first page,
-                    // configuring the new page by passing required information as a navigation
-                    // parameter
-                    rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                    var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+                    authToken = localSettings.Values["authToken"].ToString();
                 }
-                // Ensure the current window is active
+                catch
+                {
+                    if (e.PrelaunchActivated == false)
+                    {
+                        if (rootFrame.Content == null)
+                        {
+                            // When the navigation stack isn't restored navigate to the first page,
+                            // configuring the new page by passing required information as a navigation
+                            // parameter
+                            rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                        }
+                        // Ensure the current window is active
+                        Window.Current.Activate();
+                    }
+                }
+
+                if (e.PrelaunchActivated == false)
+                {
+                    if (rootFrame.Content == null)
+                    {
+                        // When the navigation stack isn't restored navigate to the first page,
+                        // configuring the new page by passing required information as a navigation
+                        // parameter
+                        rootFrame.Navigate(typeof(Home), e.Arguments);
+                    }
+                    // Ensure the current window is active
+                    Window.Current.Activate();
+                }
+
+            }
+            else
+            {
+                // The First Time App Starts Case
+                roamingProperties["HasBeenHereBefore"] = bool.TrueString;
+                rootFrame.Navigate(typeof(Welcome), e.Arguments);
                 Window.Current.Activate();
             }
+
+            
         }
 
         /// <summary>
