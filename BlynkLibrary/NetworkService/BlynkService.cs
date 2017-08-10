@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Newtonsoft;
 using Newtonsoft.Json;
 using Windows.Networking.Connectivity;
+using Windows.Data.Json;
 
 namespace BlynkLibrary.NetworkService
 {

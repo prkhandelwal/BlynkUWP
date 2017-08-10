@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Microsoft.Toolkit.Uwp;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -26,11 +27,16 @@ namespace BlynkUWP.Views
     public sealed partial class Home : Page
     {
         public Project project { get; set; }
+        public List<Device> device { get; set; }
         public Home()
         {
-            
             this.InitializeComponent();
             project = DataManager.proj;
+            if (project != null)
+            {
+                device = project.devices;
+            }
+            
             //Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested += App_BackRequested;
         }
 

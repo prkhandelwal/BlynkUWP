@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,15 +21,7 @@ namespace BlynkLibrary.Models
             public bool isAppConnectedOn { get; set; }
             public bool isShared { get; set; }
             public bool isActive { get; set; }
+            public Dictionary<string, string> pinsStorage { get; set; }
     }
-    public class Device
-    {
-        public int id { get; set; }
-        public string name { get; set; }
-        public string boardType { get; set; }
-        public string token { get; set; }
-        public string connectionType { get; set; }
-        public string status { get; set; }
-        public int disconnectTime { get; set; }
-    }
+
 }

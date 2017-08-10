@@ -3,17 +3,29 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:BlynkUWP.Views"
+    xmlns:model="using:BlynkLibrary.Models"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource SystemControlBackgroundChromeBlackMediumBrush}">
-        
-        <CommandBar Background="Cyan">
-            <AppBarButton Name="Logout_Button" Label="Logout"
+
+        <StackPanel>
+            <CommandBar Background="Cyan">
+                <AppBarButton Name="Logout_Button" Label="Logout"
                           HorizontalAlignment="Right" 
                           Icon="Redo" Content="Logout"
                           Click="Logout_Button_Click"/>
-        </CommandBar>
+
+            </CommandBar>
+
+            <ListView ItemsSource="{x:Bind device}">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Device">
+                        <TextBlock Foreground="White" Text="{x:Bind name}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
     </Grid>
 </Page>

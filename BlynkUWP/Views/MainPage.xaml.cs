@@ -49,6 +49,7 @@ namespace BlynkUWP
             {
                 var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
                 localSettings.Values["authToken"] = AuthKey.Text;
+                
                 this.Frame.Navigate(typeof(Home));
             }
             else

@@ -1,10 +1,12 @@
 ﻿using BlynkLibrary.Models;
 using BlynkLibrary.NetworkService;
+using Microsoft.Toolkit.Uwp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Storage;
 
 namespace BlynkLibrary.DataManager
 {
@@ -40,10 +42,16 @@ namespace BlynkLibrary.DataManager
             /// <summary>
             /// The service provider is busy.
             /// </summary>
-            Busy = 6
+            StorageError = 6,
+            /// <summary>
+            /// Problem with storage.
+            /// </summary>
+            Busy = 7
         }
 
+        public static string keyLargeObject = "data.txt";
         public static Project proj { get; set; }
+        public static StorageFolder localFolder = ApplicationData.Current.LocalFolder;
 
         public static async Task<StatusCode> LoginAsync(string authToken)
         {
@@ -53,15 +61,65 @@ namespace BlynkLibrary.DataManager
                 var isInternet = await BlynkService.IsInternet();
                 if (!isInternet)
                 {
-                    return StatusCode.NoInternet;
+                    StatusCode response = await DataManager.LoadSaveAsync();
+                    if (response == StatusCode.Success)
+                    {
+                        return response;
+                    }
+                    if(response == StatusCode.NoData)
+                    {
+                        return StatusCode.NoData;
+                    }
+                    
+                    else
+                    {
+                        return StatusCode.NoInternet;
+                    }
                 }
                 else
                 {
                     return StatusCode.UnknownError;
                 }
             }
-
+            await DataManager.SaveDataAsync();
             return StatusCode.Success;
+        }
+
+        public static async Task<StatusCode> SaveDataAsync()
+        {
+            try
+            {
+                StorageFile data = await localFolder.CreateFileAsync("data.txt", CreationCollisionOption.ReplaceExisting);
+                var helper = new LocalObjectStorageHelper();
+                await helper.SaveFileAsync(keyLargeObject, proj);
+                return StatusCode.Success;
+            }
+            catch (Exception)
+            {
+                return StatusCode.StorageError;
+            }
+        }
+
+        public static async Task<StatusCode> LoadSaveAsync()
+        {
+            try
+            {
+                var helper = new LocalObjectStorageHelper();
+                if(await helper.FileExistsAsync("data.txt"))
+                {
+                    proj = await helper.ReadFileAsync<Project>(keyLargeObject);
+                    return StatusCode.Success;
+                }
+                else
+                {
+                    return StatusCode.NoData;
+                }
+            }
+
+            catch
+            {
+                return StatusCode.NoData;
+            }
         }
 
 

@@ -17,6 +17,8 @@ using Windows.UI.Xaml.Navigation;
 using Windows.ApplicationModel.Core;
 using Windows.Storage;
 using BlynkUWP.Views;
+using BlynkLibrary.DataManager;
+using Windows.UI.Popups;
 
 namespace BlynkUWP
 {
@@ -56,7 +58,7 @@ namespace BlynkUWP
         /// will be used such as when the application is launched to open a specific file.
         /// </summary>
         /// <param name="e">Details about the launch request and process.</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected async override void OnLaunched(LaunchActivatedEventArgs e)
         {
             //IPropertySet roamingProperties = Application.Current.RoamingSettings.Values();
             IPropertySet roamingProperties = Windows.Storage.ApplicationData.Current.RoamingSettings.Values;
@@ -110,7 +112,22 @@ namespace BlynkUWP
                         // When the navigation stack isn't restored navigate to the first page,
                         // configuring the new page by passing required information as a navigation
                         // parameter
-                        rootFrame.Navigate(typeof(Home), e.Arguments);
+                        DataManager.StatusCode res = await DataManager.LoginAsync(authToken);
+                        if (res == DataManager.StatusCode.NoInternet)
+                        {
+                            
+                        }
+                        if (res == DataManager.StatusCode.Success)
+                        {
+                            rootFrame.Navigate(typeof(Home), e.Arguments);
+                        }
+                        else
+                        {
+                            rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                            MessageDialog dialog = new MessageDialog("No Pre-stored data found, please connect to the internet");
+                            await dialog.ShowAsync();
+                        }
+                        
                     }
                     // Ensure the current window is active
                     Window.Current.Activate();
