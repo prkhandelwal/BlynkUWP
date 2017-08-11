@@ -6,26 +6,31 @@
     xmlns:model="using:BlynkLibrary.Models"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:dm="using:BlynkLibrary.DataManager"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource SystemControlBackgroundChromeBlackMediumBrush}">
+    <Grid Background="{ThemeResource SystemControlBackgroundChromeBlackHighBrush}">
 
-        <StackPanel>
-            <CommandBar Background="Cyan">
-                <AppBarButton Name="Logout_Button" Label="Logout"
-                          HorizontalAlignment="Right" 
-                          Icon="Redo" Content="Logout"
-                          Click="Logout_Button_Click"/>
-
-            </CommandBar>
-
-            <ListView ItemsSource="{x:Bind device}">
+        <StackPanel Padding="40">
+            <TextBlock Text="My Projects" Foreground="White" FontSize="50" Margin="10"/>
+            <ListView Name="ProjectList" ItemsSource="{x:Bind device}" Margin="10" ItemClick="ProjectList_ItemClick">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="model:Device">
-                        <TextBlock Foreground="White" Text="{x:Bind name}" />
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{x:Bind name}" Foreground="White" />
+                            <TextBlock Text="{x:Bind boardType}" Foreground="White"/>
+                        </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
         </StackPanel>
+
+        <AppBar VerticalAlignment="Bottom" Background="Cyan">
+            <AppBarButton Name="Logout_Button" Label="Logout"
+                          HorizontalAlignment="Right" 
+                          Icon="Redo" Content="Logout"
+                          Click="Logout_Button_Click"/>
+        </AppBar>
     </Grid>
 </Page>

@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Toolkit.Uwp;
+using System.Collections.ObjectModel;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -28,6 +29,7 @@ namespace BlynkUWP.Views
     {
         public Project project { get; set; }
         public List<Device> device { get; set; }
+        public Device selected { get; set; }
         public Home()
         {
             this.InitializeComponent();
@@ -46,6 +48,11 @@ namespace BlynkUWP.Views
             var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
             localSettings.Values.Remove("authToken");
             this.Frame.Navigate(typeof(MainPage));
+        }
+
+        private void ProjectList_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            this.Frame.Navigate(typeof(myProject));
         }
     }
 }
