@@ -1,4 +1,5 @@
-﻿using BlynkLibrary.Models;
+﻿using BlynkLibrary.DataManager;
+using BlynkLibrary.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -24,9 +25,17 @@ namespace BlynkUWP.Views
     public sealed partial class myProject : Page
     {
         public Device currentDevice { get; set; }
+        public Dictionary<string,string> pinData { get; set; }
+        public Dictionary<string, string> reqPins { get; set; }
         public myProject()
         {
             this.InitializeComponent();
+            currentDevice = DataManager.navDevice;
+            pinData = DataManager.proj.pinsStorage;
+            string id = currentDevice.id.ToString();
+            IEnumerable<KeyValuePair<string,string>> k = pinData.Where(a => a.Key.Contains(id + "-"));
+            reqPins = k.ToDictionary(a => a.Key, a => a.Value);
+
         }
     }
 }

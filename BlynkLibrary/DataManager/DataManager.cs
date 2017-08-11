@@ -52,7 +52,7 @@ namespace BlynkLibrary.DataManager
         public static string keyLargeObject = "data.txt";
         public static Project proj { get; set; }
         public static StorageFolder localFolder = ApplicationData.Current.LocalFolder;
-        public static Device navDevice { gets; set; }
+        public static Device navDevice { get; set; }
 
         public static async Task<StatusCode> LoginAsync(string authToken)
         {

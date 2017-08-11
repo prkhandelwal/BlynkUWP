@@ -52,6 +52,8 @@ namespace BlynkUWP.Views
 
         private void ProjectList_ItemClick(object sender, ItemClickEventArgs e)
         {
+            selected = (Device)e.ClickedItem;
+            DataManager.navDevice = selected;
             this.Frame.Navigate(typeof(myProject));
         }
     }
