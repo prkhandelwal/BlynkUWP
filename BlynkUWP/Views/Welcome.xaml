@@ -5,14 +5,125 @@
     xmlns:local="using:BlynkUWP.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:data="using:BlynkUWP.Model"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <StackPanel VerticalAlignment="Center">
-            <TextBlock Text="Welcome" HorizontalAlignment="Center" VerticalAlignment="Center" />
-            <Button Name="Enter" Content="Enter" HorizontalAlignment="Center" Margin="20" Click="Enter_Click" />
-        </StackPanel>
-        
-        
+    <Page.Resources>
+        <Color x:Key="AppAccentColor">#FFFAA819</Color>
+        <SolidColorBrush x:Key="AppAccentColorBrush" Color="{StaticResource AppAccentColor}" />
+        <Color x:Key="AppAccentLightColor">#FFFDBD56</Color>
+        <SolidColorBrush x:Key="AppAccentLightColorBrush" Color="{StaticResource AppAccentLightColor}" />
+        <Color x:Key="AppAccentForegroundColor">#333333</Color>
+        <SolidColorBrush x:Key="AppAccentForegroundColorBrush" Color="{StaticResource AppAccentForegroundColor}" />
+        <Color x:Key="AppAccentBackgroundColor">#FFE6E6E6</Color>
+        <SolidColorBrush x:Key="AppAccentBackgroundColorBrush" Color="{StaticResource AppAccentBackgroundColor}" />
+        <Color x:Key="BusyIndicatorBackgroundColor">#7F000000</Color>
+        <SolidColorBrush x:Key="BusyIndicatorBackgroundColorBrush" Color="{StaticResource BusyIndicatorBackgroundColor}" />
+        <x:Double x:Key="HighResolutionImageSideLength">1000</x:Double>
+        <Style x:Key="ColoredButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource AppAccentColorBrush}" />
+            <Setter Property="Content" Value="Next" />
+            <Setter Property="Foreground" Value="{StaticResource AppAccentForegroundColorBrush}" />
+            <Setter Property="FontWeight" Value="Light" />
+            <Setter Property="Padding" Value="24,6" />
+            <Setter Property="BorderThickness" Value="0" />
+        </Style>
+        <Style x:Key="TextHeaderStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#FF363636" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Bottom" />
+            <Setter Property="FontSize" Value="32" />
+            <Setter Property="FontWeight" Value="ExtraLight" />
+            <Setter Property="Margin" Value="0,18" />
+        </Style>
+        <Style x:Key="TextGridStyle" TargetType="Grid">
+            <Setter Property="Margin" Value="18" />
+        </Style>
+        <GridLength x:Key="FirstRowHeight">5*</GridLength>
+        <GridLength x:Key="SecondRowHeight">4*</GridLength>
+
+        <Style
+            x:Key="TextContentStyle"
+            TargetType="TextBlock">
+            <Setter Property="Margin" Value="0,24,0,12" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="TextAlignment" Value="Center" />
+            <Setter Property="FontWeight" Value="Light" />
+            <Setter Property="MaxWidth" Value="500" />
+        </Style>
+    </Page.Resources>
+
+    <Grid>
+        <FlipView
+            x:Name="flipView"
+            Background="#00B16A"
+            ItemsSource="{Binding InstructionItems}"
+            SelectedItem="{Binding SelectedInstructionItem, Mode=TwoWay}">
+            <FlipView.ItemTemplate>
+                <DataTemplate x:DataType="data:InstructionItem">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="{StaticResource FirstRowHeight}" />
+                            <RowDefinition Height="{StaticResource SecondRowHeight}" />
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0" VerticalAlignment="Bottom">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ChildrenTransitions>
+                                <TransitionCollection>
+                                    <EdgeUIThemeTransition Edge="Left" />
+                                </TransitionCollection>
+                            </Grid.ChildrenTransitions>
+
+                            <TextBlock Style="{StaticResource TextHeaderStyle}" Text="{x:Bind HeaderText}" />
+
+                            <Image
+                                Grid.Row="1"
+                                MaxWidth="335"
+                                Margin="36,0"
+                                Source="{Binding Image}"
+                                Stretch="Uniform" />
+
+                            <Button Content="Get Started" HorizontalAlignment="Center"
+                                    Grid.Row="1"
+                                    VerticalAlignment="Bottom" Margin="0,32"
+                                    Style="{StaticResource ColoredButtonStyle}"
+                                    Click="Button_Click"
+                                    />
+
+                        </Grid>
+
+                        <Image
+                            Grid.Row="0"
+                            Height="26"
+                            MaxWidth="500"
+                            Margin="0,0,0,-10"
+                            VerticalAlignment="Bottom"
+                            Source="/Assets/Welcome/gradient-white.png"
+                            Stretch="Fill" />
+
+                        <Grid Grid.Row="1" Background="White">
+                            <Grid Style="{StaticResource TextGridStyle}">
+                                <StackPanel>
+                                    <StackPanel.ChildrenTransitions>
+                                        <TransitionCollection>
+                                            <EdgeUIThemeTransition Edge="Bottom" />
+                                        </TransitionCollection>
+                                    </StackPanel.ChildrenTransitions>
+                                    <TextBlock Style="{StaticResource TextContentStyle}" Text="{x:Bind ContentText}" />
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+
+                    </Grid>
+                </DataTemplate>
+            </FlipView.ItemTemplate>
+        </FlipView>
+
     </Grid>
+
+
 </Page>

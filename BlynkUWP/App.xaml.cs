@@ -19,6 +19,8 @@ using Windows.Storage;
 using BlynkUWP.Views;
 using BlynkLibrary.DataManager;
 using Windows.UI.Popups;
+using Microsoft.Toolkit.Uwp.Helpers;
+using Microsoft.Toolkit.Uwp;
 
 namespace BlynkUWP
 {
@@ -61,7 +63,8 @@ namespace BlynkUWP
         protected async override void OnLaunched(LaunchActivatedEventArgs e)
         {
             //IPropertySet roamingProperties = Application.Current.RoamingSettings.Values();
-            IPropertySet roamingProperties = Windows.Storage.ApplicationData.Current.RoamingSettings.Values;
+            RoamingObjectStorageHelper roamingProperties = new RoamingObjectStorageHelper();
+            //IPropertySet roamingProperties = Windows.Storage.ApplicationData.Current.RoamingSettings.Values;
             Frame rootFrame = Window.Current.Content as Frame;
             Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested += App_BackRequested;
             // Do not repeat app initialization when the Window already has content,
@@ -81,8 +84,8 @@ namespace BlynkUWP
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
             }
-
-            if (roamingProperties.ContainsKey("HasBeenHereBefore"))
+            var k = roamingProperties.KeyExists("HasBeenHereBefore");
+            if (roamingProperties.KeyExists("HasBeenHereBefore"))
             {
                 try
                 {
@@ -137,7 +140,8 @@ namespace BlynkUWP
             else
             {
                 // The First Time App Starts Case
-                roamingProperties["HasBeenHereBefore"] = bool.TrueString;
+                //roamingProperties["HasBeenHereBefore"] = bool.TrueString;
+                roamingProperties.Save("HasBeenHereBefore", true);
                 rootFrame.Navigate(typeof(Welcome), e.Arguments);
                 Window.Current.Activate();
             }
