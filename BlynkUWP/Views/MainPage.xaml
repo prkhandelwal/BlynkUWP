@@ -9,46 +9,56 @@
 
 
     <ScrollViewer VerticalScrollMode="Enabled" VerticalScrollBarVisibility="Hidden">
-        <Grid Background="{ThemeResource SystemControlBackgroundChromeBlackHighBrush}">
+        <Grid Background="White">
             <StackPanel Style="{StaticResource SettingsFlyoutSectionStyle}">
-                <Viewbox MaxWidth="300" Margin="20" ScrollViewer.VerticalScrollMode="Enabled">
-                    <StackPanel>
-                        <Image Source="ms-appx:///Assets/Blynk.png" />
-                        <TextBlock Foreground="White" Text="Welcome to BlynkIT"
-                           HorizontalAlignment="Center"/>
-                        <TextBlock Foreground="White" Text="The Unofficial Blynk UWP Client"
-                           HorizontalAlignment="Center"/>
-                    </StackPanel>
-                </Viewbox>
-                <Viewbox MaxWidth="300" Margin="20">
-                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
 
-                        <TextBox Name="AuthKey" 
+                <Grid Background="#00B16A">
+                    <Viewbox MaxWidth="300" Margin="20">
+                        <StackPanel>
+                            <Image Source="ms-appx:///Assets/Blynk.png" />
+                            <TextBlock Foreground="White" Text="Welcome to BlynkIT"
+                           HorizontalAlignment="Center"/>
+                            <TextBlock Foreground="White" Text="The Unofficial Blynk UWP Client"
+                           HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Viewbox>
+                </Grid>
+                <Grid Background="White">
+                    <Viewbox MaxWidth="500" Margin="20">
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                            <TextBox Name="AuthKey" 
                                  PlaceholderText="Authorization Token"
                                  HorizontalAlignment="Center"
-                                 Margin="30"
+                                 Margin="15"
                                  Padding="5"
-                                 FontSize="20"
-                                 BorderThickness="5"
+                                 FontSize="15"
+                                 BorderThickness="1"
                                  BorderBrush="LightCyan"
-                                 MinWidth="300"
-                                 MinHeight="50"
+                                 Width="300"
+                                 Height="40"    
                                  Background="White"
                                  />
-                        <TextBlock Text="You need to Create a Project on Your Android / iOS Device to get the Authorization Token"
-                           Foreground="White"
-                               Margin="0 0 0 50"/>
-                        <Button Name="Login" Content="Login" Margin="10" Background="Cyan"
+                            <StackPanel HorizontalAlignment="Center">
+                                <TextBlock Text="You need to Create a Project on Your Android / iOS Device"
+                           Foreground="#00B16A" HorizontalAlignment="Center"
+                               Margin="0 0 0 0"/>
+                                <TextBlock Text="to get the Authorization Token"
+                           Foreground="#00B16A" HorizontalAlignment="Center"
+                                       Margin="0 0 0 50"/>
+                            </StackPanel>
+                            <Button Name="Login" Content="Login" Margin="10" Background="#00B16A"
                     Foreground="White"
                     HorizontalAlignment="Center"
                     Padding="5"
-                    MinWidth="200"
-                    FontSize="20"
+                    MinWidth="300"
+                    FontSize="15"
                     Click="Login_Click"
-                    MinHeight="50" Style="{StaticResource AccentButtonStyle}"
+                    Height="35" Style="{StaticResource AccentButtonStyle}"
                     />
-                    </StackPanel>
-                </Viewbox>
+                        </StackPanel>
+                    </Viewbox>
+                </Grid>
             </StackPanel>
         </Grid>
     </ScrollViewer>

@@ -27,11 +27,13 @@ namespace BlynkUWP.Views
     {
 
         ObservableCollection<InstructionItem> InstructionItems = new ObservableCollection<InstructionItem>();
+        public Visibility buttonVisibility { get; set; }
         public Welcome()
         {
 
             this.InitializeComponent();
             start();
+            buttonVisibility = Visibility.Collapsed;
             //  this.DataContextChanged += (s, e) => Bindings.Update();
         }
         public void start()
@@ -99,7 +101,7 @@ namespace BlynkUWP.Views
 
             InstructionItems.Add(new InstructionItem("Ready?",
                  "Everything is easy when you are crazy about it ,right?",
-                   null, "MainPage")
+                   null, "MainPage", Visibility.Visible)
                );
 
 
@@ -107,7 +109,6 @@ namespace BlynkUWP.Views
 
         private void flipView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

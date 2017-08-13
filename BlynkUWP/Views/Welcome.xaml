@@ -78,7 +78,7 @@
                                 </TransitionCollection>
                             </Grid.ChildrenTransitions>
 
-                            <TextBlock Style="{StaticResource TextHeaderStyle}" Text="{x:Bind HeaderText}" />
+                            <TextBlock x:Name="HeaderText" Style="{StaticResource TextHeaderStyle}" Text="{x:Bind HeaderText}" />
 
                             <Image
                                 Grid.Row="1"
@@ -87,8 +87,9 @@
                                 Source="{Binding Image}"
                                 Stretch="Uniform" />
 
-                            <Button Content="Get Started" HorizontalAlignment="Center"
+                            <Button x:Name="StartedButton" Content="Get Started" HorizontalAlignment="Center"
                                     Grid.Row="1"
+                                    Visibility="{x:Bind ButtonVisibility}"
                                     VerticalAlignment="Bottom" Margin="0,32"
                                     Style="{StaticResource ColoredButtonStyle}"
                                     Click="Button_Click"

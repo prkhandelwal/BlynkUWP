@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml;
 
 namespace BlynkUWP.Model
 {
@@ -16,12 +17,14 @@ namespace BlynkUWP.Model
         /// <param name="image">The image Uri.</param>
         /// <param name="targetPage">The target page type.</param>
         public InstructionItem(string headerText, string contentText,
-            Uri image, string targetPage = null)
+            Uri image, string targetPage = null, Visibility buttonVisibility = Visibility.Collapsed)
         {
             HeaderText = headerText;
             ContentText = contentText;
             Image = image;
             TargetPage = targetPage;
+            ButtonVisibility = buttonVisibility;
+
         }
 
         /// <summary>
@@ -43,5 +46,10 @@ namespace BlynkUWP.Model
         /// Gets or sets the optional target page.
         /// </summary>
         public string TargetPage { get; set; }
+
+        ///<summary>
+        ///Sets the visiblity for Get started button
+        ///</summary>
+        public Visibility ButtonVisibility { get; set; }
     }
 }
