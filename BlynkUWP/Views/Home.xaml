@@ -10,23 +10,43 @@
     xmlns:dm="using:BlynkLibrary.DataManager"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource SystemControlBackgroundChromeBlackHighBrush}">
+    <Grid Background="White">
 
-        <StackPanel Padding="40">
-            <TextBlock Text="My Projects" Foreground="White" FontSize="50" Margin="10"/>
-            <ListView Name="ProjectList" ItemsSource="{x:Bind device}" Margin="10" ItemClick="ProjectList_ItemClick" IsItemClickEnabled="True">
-                <ListView.ItemTemplate>
-                    <DataTemplate x:DataType="model:Device">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{x:Bind name}" Foreground="White" />
-                            <TextBlock Text="{x:Bind boardType}" Foreground="White"/>
+        <StackPanel>
+            <StackPanel Padding="0 0 0 40">
+                <Grid Background="#00B16A">
+                    <Viewbox MaxWidth="400" Margin="20" HorizontalAlignment="Left">
+                        <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                            <Image Source="ms-appx:///Assets/Blynk.png" />
+                            <StackPanel VerticalAlignment="Center">
+                                <TextBlock Foreground="White" Text="Hello IoT Developer"
+                                           FontSize="90"
+                           HorizontalAlignment="Center"/>
+                            </StackPanel>
                         </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                    </Viewbox>
+                </Grid>
+                <!--<TextBlock Text="Your Projects" FontSize="50" Foreground="DarkCyan" Margin="20 0 0  0" />-->
+                <Hub Orientation="Horizontal">
+                    <HubSection Header="Your Projects">
+                        <DataTemplate>
+                            <ListView Name="ProjectList" Loaded="ProjectList_Loaded" Margin="10" ItemClick="ProjectList_ItemClick" IsItemClickEnabled="True">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate x:DataType="model:Device">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{x:Bind name}" Foreground="Black" Margin="10" />
+                                            <TextBlock Text="{x:Bind boardType}" Foreground="Black" Margin="10"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </DataTemplate>
+                    </HubSection>
+                </Hub>
+            </StackPanel>
         </StackPanel>
 
-        <AppBar VerticalAlignment="Bottom" Background="Cyan">
+        <AppBar VerticalAlignment="Bottom" Background="#00B16A">
             <AppBarButton Name="Logout_Button" Label="Logout"
                           HorizontalAlignment="Right" 
                           Icon="Redo" Content="Logout"

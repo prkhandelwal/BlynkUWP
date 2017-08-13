@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Toolkit.Uwp;
 using System.Collections.ObjectModel;
+using Windows.UI.Popups;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -33,6 +34,7 @@ namespace BlynkUWP.Views
         public Home()
         {
             this.InitializeComponent();
+            //SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
             project = DataManager.proj;
             if (project != null)
             {
@@ -57,29 +59,26 @@ namespace BlynkUWP.Views
             this.Frame.Navigate(typeof(myProject));
         }
 
+
+        //private void OnBackRequested(object sender, BackRequestedEventArgs e)
+        //{
+
+        //}
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             Frame rootFrame = Window.Current.Content as Frame;
-
-            string myPages = "";
-            foreach (PageStackEntry page in rootFrame.BackStack)
-            {
-                myPages += page.SourcePageType.ToString() + "\n";
-            }
-            //stackCount.Text = myPages;
-
             if (rootFrame.CanGoBack)
             {
-                // Show UI in title bar if opted-in and in-app backstack is not empty.
-                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
-                    AppViewBackButtonVisibility.Collapsed;
+                this.Frame.BackStack.Clear();
             }
-            else
-            {
-                // Remove the UI from the title bar if in-app back stack is empty.
-                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
-                    AppViewBackButtonVisibility.Collapsed;
-            }
+        }
+
+        private void ProjectList_Loaded(object sender, RoutedEventArgs e)
+        {
+            var listView = (ListView)sender;
+            listView.ItemsSource = device;
+
         }
     }
 }
