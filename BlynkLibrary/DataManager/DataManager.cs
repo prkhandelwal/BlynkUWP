@@ -53,6 +53,7 @@ namespace BlynkLibrary.DataManager
         public static Project proj { get; set; }
         public static StorageFolder localFolder = ApplicationData.Current.LocalFolder;
         public static Device navDevice { get; set; }
+        public static string authTokenStored { get; set; }
 
         public static async Task<StatusCode> LoginAsync(string authToken)
         {
@@ -72,6 +73,39 @@ namespace BlynkLibrary.DataManager
                         return StatusCode.NoData;
                     }
                     
+                    else
+                    {
+                        return StatusCode.NoInternet;
+                    }
+                }
+                else
+                {
+                    return StatusCode.UnknownError;
+                }
+            }
+            authTokenStored = authToken;
+            await DataManager.SaveDataAsync();
+            return StatusCode.Success;
+        }
+
+        public static async Task<StatusCode> RefreshAsync()
+        {
+            proj = await BlynkService.Login(authTokenStored);
+            if (proj.id == 0)
+            {
+                var isInternet = await BlynkService.IsInternet();
+                if (!isInternet)
+                {
+                    StatusCode response = await DataManager.LoadSaveAsync();
+                    if (response == StatusCode.Success)
+                    {
+                        return response;
+                    }
+                    if (response == StatusCode.NoData)
+                    {
+                        return StatusCode.NoData;
+                    }
+
                     else
                     {
                         return StatusCode.NoInternet;
@@ -109,6 +143,7 @@ namespace BlynkLibrary.DataManager
                 if(await helper.FileExistsAsync("data.txt"))
                 {
                     proj = await helper.ReadFileAsync<Project>(keyLargeObject);
+                    authTokenStored = proj.devices[1].token;
                     return StatusCode.Success;
                 }
                 else

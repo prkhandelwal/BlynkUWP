@@ -36,14 +36,27 @@ namespace BlynkUWP.Views
         public myProject()
         {
             this.InitializeComponent();
+            //pinsStorage = k.ToDictionary(a => a.Key, a => a.Value);
+            refresh();            
+        }
+
+        public async void refresh()
+        {
+            DataManager.StatusCode status = await DataManager.RefreshAsync();
+            if (status != DataManager.StatusCode.Success)
+            {
+                StatusText.Text = "Online";
+            }
+            else
+            {
+                StatusText.Text = "Offline";
+            }
             currentDevice = DataManager.navDevice;
             pinData = DataManager.proj.pinsStorage;
             string id = currentDevice.id.ToString();
             IEnumerable<KeyValuePair<string, string>> k = pinData.Where(a => a.Key.Contains(id + "-"));
             pinsStorage = k.ToList();
-            //pinsStorage = k.ToDictionary(a => a.Key, a => a.Value);
             start();
-            
         }
 
         public void start()

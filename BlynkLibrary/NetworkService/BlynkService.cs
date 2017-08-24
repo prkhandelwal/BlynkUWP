@@ -16,13 +16,17 @@ namespace BlynkLibrary.NetworkService
         private const string Blynk_api_String = "http://blynk-cloud.com/{0}/";
         private const string Blynk_toggle_String = "http://blynk-cloud.com/{0}/update/{1}?value={1}";
 
-        private static Windows.Web.Http.HttpClient httpClient = new Windows.Web.Http.HttpClient();
-        private static Windows.Web.Http.Headers.HttpRequestHeaderCollection headers = httpClient.DefaultRequestHeaders;
-        private static Windows.Web.Http.HttpResponseMessage httpResponse = new Windows.Web.Http.HttpResponseMessage();
+        private static System.Net.Http.HttpClient httpClient = new System.Net.Http.HttpClient();
+        private static System.Net.Http.HttpResponseMessage httpResponse = new System.Net.Http.HttpResponseMessage();
+        //private static Windows.Web.Http.HttpClient httpClient = new Windows.Web.Http.HttpClient();
+        //private static Windows.Web.Http.HttpResponseMessage httpResponse = new Windows.Web.Http.HttpResponseMessage();
+        //private static System.Net.Http.Headers.HttpHeaderValueCollection headers = httpClient.DefaultRequestHeaders;
+        //private static Windows.Web.Http.HttpResponseMessage httpResponse = new Windows.Web.Http.HttpResponseMessage();
 
         public async static Task<Project> Login(string auth)
         {
             string httpResponseBody = "";
+            
             try
             {
                 string uriString = String.Format(Blynk_api_String + "project",auth);
