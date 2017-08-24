@@ -28,7 +28,7 @@
                 </Grid>
                 <!--<TextBlock Text="Your Projects" FontSize="50" Foreground="DarkCyan" Margin="20 0 0  0" />-->
                 <Hub Orientation="Horizontal">
-                    <HubSection Header="Your Projects">
+                    <HubSection Header="Your Projects" Margin="50" IsHeaderInteractive="True" Background="#F4F4F4" MinWidth="250">
                         <DataTemplate>
                             <ListView Name="ProjectList" Loaded="ProjectList_Loaded" Margin="10" ItemClick="ProjectList_ItemClick" IsItemClickEnabled="True">
                                 <ListView.ItemTemplate>
@@ -40,6 +40,29 @@
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
+                        </DataTemplate>
+                    </HubSection>
+
+                    <HubSection x:Name="Tech" Header="Tech" IsHeaderInteractive="True" Background="#F4F4F4" MinWidth="250" Margin="50">
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="Tech news goes here."
+                   Style="{ThemeResource BodyTextBlockStyle}"/>
+                                <TextBlock Text="Click the header to go to the Tech page."
+                   Style="{ThemeResource BodyTextBlockStyle}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </HubSection>
+
+                    <HubSection x:Name="Sports" Header="Sports" IsHeaderInteractive="True" 
+        Background="#F9F9F9" MinWidth="250" Margin="50">
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="Sports news goes here."
+                   Style="{ThemeResource BodyTextBlockStyle}"/>
+                                <TextBlock Text="Click the header to go to the Sports page." 
+                   Style="{ThemeResource BodyTextBlockStyle}"/>
+                            </StackPanel>
                         </DataTemplate>
                     </HubSection>
                 </Hub>
