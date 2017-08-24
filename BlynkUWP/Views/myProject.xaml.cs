@@ -43,13 +43,17 @@ namespace BlynkUWP.Views
         public async void refresh()
         {
             DataManager.StatusCode status = await DataManager.RefreshAsync();
-            if (status != DataManager.StatusCode.Success)
+            if (!(await BlynkLibrary.NetworkService.BlynkService.IsInternet()))
             {
-                StatusText.Text = "Online";
+                StatusText.Text = "Offline";
+            }
+            else if (status != DataManager.StatusCode.Success)
+            {
+                StatusText.Text = "Offline";
             }
             else
             {
-                StatusText.Text = "Offline";
+                StatusText.Text = "Online";
             }
             currentDevice = DataManager.navDevice;
             pinData = DataManager.proj.pinsStorage;
@@ -121,11 +125,11 @@ namespace BlynkUWP.Views
             string pinName = pin.Replace(id + "-" , "");
             if (toggleSwitch.IsOn == true)
             {
-                await BlynkLibrary.NetworkService.BlynkService.toggle(DataManager.authTokenStored,pinName ,"1");
+                await BlynkLibrary.NetworkService.BlynkService.toggle(DataManager.navDevice.token,pinName ,"1");
             }
             else
             {
-                await BlynkLibrary.NetworkService.BlynkService.toggle(DataManager.authTokenStored, pinName, "0");
+                await BlynkLibrary.NetworkService.BlynkService.toggle(DataManager.navDevice.token, pinName, "0");
             }
         }
     }
