@@ -14,7 +14,7 @@ namespace BlynkLibrary.NetworkService
     public class BlynkService
     {
         private const string Blynk_api_String = "http://blynk-cloud.com/{0}/";
-        private const string Blynk_toggle_String = "http://blynk-cloud.com/{0}/update/{1}?value={1}";
+        private const string Blynk_toggle_String = "http://blynk-cloud.com/{0}/update/{1}?value={2}";
 
         private static System.Net.Http.HttpClient httpClient = new System.Net.Http.HttpClient();
         private static System.Net.Http.HttpResponseMessage httpResponse = new System.Net.Http.HttpResponseMessage();

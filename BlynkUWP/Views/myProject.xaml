@@ -34,8 +34,7 @@
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="localData:SwitchData">
                             <StackPanel>
-                                <TextBlock Text="{x:Bind SwitchName}" />
-                                <ToggleSwitch Name="SwitchToggle" IsOn="{x:Bind SwitchValue}" Toggled="SwitchToggle_Toggled" />
+                                <ToggleSwitch Header="{x:Bind SwitchName}" Name="SwitchToggle" IsOn="{x:Bind SwitchValue}" Toggled="SwitchToggle_Toggled" />
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>

@@ -113,9 +113,20 @@ namespace BlynkUWP.Views
             }
         }
 
-        private void SwitchToggle_Toggled(object sender, RoutedEventArgs e)
+        private async void SwitchToggle_Toggled(object sender, RoutedEventArgs e)
         {
-
+            ToggleSwitch toggleSwitch = sender as ToggleSwitch;
+            string id = currentDevice.id.ToString();
+            string pin = toggleSwitch.Header.ToString();
+            string pinName = pin.Replace(id + "-" , "");
+            if (toggleSwitch.IsOn == true)
+            {
+                await BlynkLibrary.NetworkService.BlynkService.toggle(DataManager.authTokenStored,pinName ,"1");
+            }
+            else
+            {
+                await BlynkLibrary.NetworkService.BlynkService.toggle(DataManager.authTokenStored, pinName, "0");
+            }
         }
     }
 }
