@@ -14,6 +14,7 @@ namespace BlynkLibrary.NetworkService
     public class BlynkService
     {
         private const string Blynk_api_String = "http://blynk-cloud.com/{0}/";
+        private const string Blynk_toggle_String = "http://blynk-cloud.com/{0}/update/{1}?value={1}";
 
         private static Windows.Web.Http.HttpClient httpClient = new Windows.Web.Http.HttpClient();
         private static Windows.Web.Http.Headers.HttpRequestHeaderCollection headers = httpClient.DefaultRequestHeaders;
@@ -43,6 +44,23 @@ namespace BlynkLibrary.NetworkService
                     error.name = "Error: " + e.HResult.ToString("X") + " Message: " + e.Message;
                 }
                 return error;
+            }
+        }
+
+        public static async Task<bool> toggle (string auth, string pin, string value)
+        {
+            string httpResponseBody = "";
+            try
+            {
+                string uriString = String.Format(Blynk_toggle_String, auth, pin, value);
+                httpResponse = await httpClient.GetAsync(new Uri(uriString));
+                httpResponseBody = await httpResponse.Content.ReadAsStringAsync();
+                return true;
+            }
+
+            catch (Exception e)
+            {
+                return false;
             }
         }
 

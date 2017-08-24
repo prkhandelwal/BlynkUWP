@@ -5,9 +5,48 @@
     xmlns:local="using:BlynkUWP.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:data="using:BlynkLibrary.Models"
+    xmlns:localData ="using:BlynkUWP.Model"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource SystemControlBackgroundChromeBlackHighBrush}">
-        
+    <Grid Background="White">
+
+        <StackPanel>
+            <StackPanel Padding="0 0 0 40">
+                <Grid Background="#00B16A">
+                    <Viewbox MaxWidth="400" Margin="20" HorizontalAlignment="Left">
+                        <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                            <Image Source="ms-appx:///Assets/Blynk.png" />
+                            <StackPanel VerticalAlignment="Center">
+                                <TextBlock Foreground="White" Text="My Projects"
+                                           FontSize="90"
+                           HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Viewbox>
+                </Grid>
+            </StackPanel>
+
+            <StackPanel>
+                <ListView Name="ToggleList" ItemsSource="{x:Bind ToggleItems}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="localData:SwitchData">
+                            <StackPanel>
+                                <TextBlock Text="{x:Bind SwitchName}" />
+                                <ToggleSwitch Name="SwitchToggle" IsOn="{x:Bind SwitchValue}" Toggled="SwitchToggle_Toggled" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
+        </StackPanel>
+
+        <AppBar VerticalAlignment="Bottom" Background="#00B16A">
+            <AppBarButton Name="Logout_Button" Label="Logout"
+                          HorizontalAlignment="Right" 
+                          Icon="Redo" Content="Logout"
+                          />
+        </AppBar>
     </Grid>
+
 </Page>

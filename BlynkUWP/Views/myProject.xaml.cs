@@ -1,7 +1,9 @@
 ﻿using BlynkLibrary.DataManager;
 using BlynkLibrary.Models;
+using BlynkUWP.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -26,17 +28,51 @@ namespace BlynkUWP.Views
     public sealed partial class myProject : Page
     {
         public Device currentDevice { get; set; }
-        public Dictionary<string,string> pinData { get; set; }
-        public Dictionary<string, string> reqPins { get; set; }
+        public Dictionary<string, string> pinData { get; set; }
+        //public Dictionary<string, string> pinsStorage { get; set; }
+        public List<KeyValuePair<string, string>> pinsStorage { get; set; }
+
+        ObservableCollection<SwitchData> ToggleItems = new ObservableCollection<SwitchData>();
         public myProject()
         {
             this.InitializeComponent();
             currentDevice = DataManager.navDevice;
             pinData = DataManager.proj.pinsStorage;
             string id = currentDevice.id.ToString();
-            IEnumerable<KeyValuePair<string,string>> k = pinData.Where(a => a.Key.Contains(id + "-"));
-            reqPins = k.ToDictionary(a => a.Key, a => a.Value);
+            IEnumerable<KeyValuePair<string, string>> k = pinData.Where(a => a.Key.Contains(id + "-"));
+            pinsStorage = k.ToList();
+            //pinsStorage = k.ToDictionary(a => a.Key, a => a.Value);
+            start();
+            
+        }
 
+        public void start()
+        {
+            ToggleList.ItemsSource = ToggleItems;
+            InitializeToggleItems();
+            //flipView.ItemsSource = InstructionItems;
+            //flipView.SelectionChanged += flipView_SelectionChanged;
+
+            //InitializeInstructionItems();
+
+        }
+
+        private void InitializeToggleItems()
+        {
+            bool pin;
+            for (int i=0; i < pinsStorage.Count(); i++)
+            {
+                if (pinsStorage[i].Value ==  "0")
+                {
+                    pin = false;
+                }
+                else
+                {
+                    pin = true;
+                }
+                ToggleItems.Add(new SwitchData(pinsStorage[i].Key, pin));
+            }
+            
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -62,6 +98,11 @@ namespace BlynkUWP.Views
                 SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
                     AppViewBackButtonVisibility.Collapsed;
             }
+        }
+
+        private void SwitchToggle_Toggled(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
