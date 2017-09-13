@@ -8,10 +8,20 @@
     mc:Ignorable="d">
 
 
+    
     <ScrollViewer VerticalScrollMode="Enabled" VerticalScrollBarVisibility="Hidden">
         <Grid Background="White">
-            <StackPanel Style="{StaticResource SettingsFlyoutSectionStyle}">
-
+            <Grid
+                Name="LoadingGrid"
+                Visibility="Collapsed"
+                Background="White">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <ProgressRing IsActive="True" Foreground="#00B16A" Margin="5" ></ProgressRing>
+                    <TextBlock Text="Please Wait while we load your content !" />
+                </StackPanel>
+            </Grid>
+            <StackPanel Name="LoginStack" Style="{StaticResource SettingsFlyoutSectionStyle}">
+ 
                 <Grid Background="#00B16A">
                     <Viewbox MaxWidth="300" Margin="20">
                         <StackPanel>

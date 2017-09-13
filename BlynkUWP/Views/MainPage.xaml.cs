@@ -44,6 +44,8 @@ namespace BlynkUWP
                 await msg.ShowAsync();
                 return;
             }
+            LoginStack.Visibility = Visibility.Collapsed;
+            LoadingGrid.Visibility = Visibility.Visible;
             status = await DataManager.LoginAsync(AuthKey.Text);
             if (status == DataManager.StatusCode.Success)
             {
@@ -54,6 +56,8 @@ namespace BlynkUWP
             }
             else
             {
+                LoadingGrid.Visibility = Visibility.Collapsed;
+                LoginStack.Visibility = Visibility.Visible;
                 MessageDialog dialog = new MessageDialog(DataManager.proj.name);
                 await dialog.ShowAsync();
             }

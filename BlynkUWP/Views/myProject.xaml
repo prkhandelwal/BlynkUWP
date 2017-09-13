@@ -29,24 +29,31 @@
 
             <TextBlock Name="StatusText" Text="Status" Margin="10,0,10,10"/>
 
-            <StackPanel Margin="5">
-                <ListView Name="ToggleList" ItemsSource="{x:Bind ToggleItems}">
-                    <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="localData:SwitchData">
-                            <StackPanel>
-                                <ToggleSwitch Header="{x:Bind SwitchName}" Name="SwitchToggle" IsOn="{x:Bind SwitchValue}" Toggled="SwitchToggle_Toggled" />
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </StackPanel>
+            <Pivot>
+                <PivotItem Header="Switches">
+                    
+                </PivotItem>
+                
+                <PivotItem Header="Master Controls">
+                    <StackPanel Margin="5">
+                        <ListView Name="ToggleList" ItemsSource="{x:Bind ToggleItems}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate x:DataType="localData:SwitchData">
+                                    <StackPanel>
+                                        <ToggleSwitch Header="{x:Bind SwitchName}" Name="SwitchToggle" IsOn="{x:Bind SwitchValue}" Toggled="SwitchToggle_Toggled" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackPanel>
+                </PivotItem>
+            </Pivot>
         </StackPanel>
 
         <AppBar VerticalAlignment="Bottom" Background="#00B16A">
             <AppBarButton Name="Logout_Button" Label="Logout"
                           HorizontalAlignment="Right" 
-                          Icon="Redo" Content="Logout"
-                          />
+                          Icon="Redo" Content="Logout"/>
         </AppBar>
     </Grid>
 
