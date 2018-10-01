@@ -18,3 +18,6 @@ The solution contains two projects:
 2) BlynkLibrary : This is the server-communication library.
 
 (More details to be added)
+
+### API Documentation
+https://blynkapi.docs.apiary.io/
