@@ -38,7 +38,7 @@ namespace BlynkUWP.Views
             project = DataManager.proj;
             if (project != null)
             {
-                device = project.devices;
+                device = project.Devices;
             }
             
             //Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested += App_BackRequested;

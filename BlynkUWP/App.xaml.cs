@@ -84,7 +84,7 @@ namespace BlynkUWP
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
             }
-            var k = roamingProperties.KeyExists("HasBeenHereBefore");
+
             if (roamingProperties.KeyExists("HasBeenHereBefore"))
             {
                 try

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28721.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlynkUWP", "BlynkUWP\BlynkUWP.csproj", "{18329F06-3B00-4AE9-9AA6-581E48DB17FE}"
 EndProject
@@ -19,7 +19,9 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{18329F06-3B00-4AE9-9AA6-581E48DB17FE}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{18329F06-3B00-4AE9-9AA6-581E48DB17FE}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{18329F06-3B00-4AE9-9AA6-581E48DB17FE}.Debug|Any CPU.Build.0 = Debug|x64
+		{18329F06-3B00-4AE9-9AA6-581E48DB17FE}.Debug|Any CPU.Deploy.0 = Debug|x64
 		{18329F06-3B00-4AE9-9AA6-581E48DB17FE}.Debug|ARM.ActiveCfg = Debug|ARM
 		{18329F06-3B00-4AE9-9AA6-581E48DB17FE}.Debug|ARM.Build.0 = Debug|ARM
 		{18329F06-3B00-4AE9-9AA6-581E48DB17FE}.Debug|ARM.Deploy.0 = Debug|ARM
@@ -58,5 +60,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C64A5ACE-6423-4745-9B76-778352F579A7}
 	EndGlobalSection
 EndGlobal

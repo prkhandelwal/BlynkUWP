@@ -38,14 +38,14 @@ namespace BlynkLibrary.NetworkService
             catch (Exception e)
             {
                 var error = new Project();
-                error.id = 0;
+                error.Id = 0;
                 if(httpResponseBody == "Invalid token.")
                 {
-                    error.name = "Error: " + httpResponseBody;
+                    error.Name = "Error: " + httpResponseBody;
                 }
                 else
                 {
-                    error.name = "Error: " + e.HResult.ToString("X") + " Message: " + e.Message;
+                    error.Name = "Error: " + e.HResult.ToString("X") + " Message: " + e.Message;
                 }
                 return error;
             }

@@ -9,19 +9,22 @@ namespace BlynkLibrary.Models
 {
     public class Project
     {
-            public int id { get; set; }
-            public int parentId { get; set; }
-            public bool isPreview { get; set; }
-            public string name { get; set; }
-            public long createdAt { get; set; }
-            public long updatedAt { get; set; }
-            public List<Device> devices { get; set; }
-            public string theme { get; set; }
-            public bool keepScreenOn { get; set; }
-            public bool isAppConnectedOn { get; set; }
-            public bool isShared { get; set; }
-            public bool isActive { get; set; }
-            public Dictionary<string, string> pinsStorage { get; set; }
+        public int Id { get; set; }
+        public int ParentId { get; set; }
+        public bool IsPreview { get; set; }
+        public string Name { get; set; }
+        public long CreatedAt { get; set; }
+        public long UpdatedAt { get; set; }
+        public List<Widget> Widgets { get; set; }
+        public List<Device> Devices { get; set; }
+        public string Theme { get; set; }
+        public bool KeepScreenOn { get; set; }
+        public bool IsAppConnectedOn { get; set; }
+        public bool IsShared { get; set; }
+        public bool IsActive { get; set; }
+        public bool widgetBackgroundOn { get; set; }
+        public int color { get; set; }
+        public bool isDefaultColor { get; set; }
     }
 
 }

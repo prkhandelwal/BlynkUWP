@@ -109,6 +109,7 @@
     <Compile Include="DataManager\DataManager.cs" />
     <Compile Include="Models\Device.cs" />
     <Compile Include="Models\Project.cs" />
+    <Compile Include="Models\Widget.cs" />
     <Compile Include="NetworkService\BlynkService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\BlynkLibrary.rd.xml" />

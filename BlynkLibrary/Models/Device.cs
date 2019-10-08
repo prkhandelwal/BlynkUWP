@@ -8,12 +8,11 @@ namespace BlynkLibrary.Models
 {
     public class Device
     {
-        public int id { get; set; }
-        public string name { get; set; }
-        public string boardType { get; set; }
-        public string token { get; set; }
-        public string connectionType { get; set; }
-        public string status { get; set; }
-        public int disconnectTime { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string BoardType { get; set; }
+        public string Vendor { get; set; }
+        public string ConnectionType { get; set; }
+        public bool IsUserIcon { get; set; }
     }
 }
