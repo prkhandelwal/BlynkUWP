@@ -36,7 +36,6 @@
                 <Grid Background="White">
                     <Viewbox MaxWidth="500" Margin="20">
                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-
                             <TextBox Name="AuthKey" 
                                  PlaceholderText="Authorization Token"
                                  HorizontalAlignment="Center"

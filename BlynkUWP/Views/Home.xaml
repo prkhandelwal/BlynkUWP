@@ -34,8 +34,8 @@
                                 <ListView.ItemTemplate>
                                     <DataTemplate x:DataType="model:Device">
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{x:Bind name}" Foreground="Black" Margin="10" />
-                                            <TextBlock Text="{x:Bind boardType}" Foreground="Black" Margin="10"/>
+                                            <TextBlock Text="{x:Bind Name}" Foreground="Black" Margin="10" />
+                                            <TextBlock Text="{x:Bind BoardType}" Foreground="Black" Margin="10"/>
                                         </StackPanel>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>

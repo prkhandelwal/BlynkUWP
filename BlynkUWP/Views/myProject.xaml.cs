@@ -56,40 +56,7 @@ namespace BlynkUWP.Views
                 StatusText.Text = "Online";
             }
             currentDevice = DataManager.navDevice;
-            pinData = DataManager.proj.pinsStorage;
-            string id = currentDevice.id.ToString();
-            IEnumerable<KeyValuePair<string, string>> k = pinData.Where(a => a.Key.Contains(id + "-"));
-            pinsStorage = k.ToList();
-            start();
-        }
-
-        public void start()
-        {
-            ToggleList.ItemsSource = ToggleItems;
-            InitializeToggleItems();
-            //flipView.ItemsSource = InstructionItems;
-            //flipView.SelectionChanged += flipView_SelectionChanged;
-
-            //InitializeInstructionItems();
-
-        }
-
-        private void InitializeToggleItems()
-        {
-            bool pin;
-            for (int i=0; i < pinsStorage.Count(); i++)
-            {
-                if (pinsStorage[i].Value ==  "0")
-                {
-                    pin = false;
-                }
-                else
-                {
-                    pin = true;
-                }
-                ToggleItems.Add(new SwitchData(pinsStorage[i].Key, pin));
-            }
-            
+            string id = currentDevice.Id.ToString();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -114,22 +81,6 @@ namespace BlynkUWP.Views
                 // Remove the UI from the title bar if in-app back stack is empty.
                 SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
                     AppViewBackButtonVisibility.Collapsed;
-            }
-        }
-
-        private async void SwitchToggle_Toggled(object sender, RoutedEventArgs e)
-        {
-            ToggleSwitch toggleSwitch = sender as ToggleSwitch;
-            string id = currentDevice.id.ToString();
-            string pin = toggleSwitch.Header.ToString();
-            string pinName = pin.Replace(id + "-" , "");
-            if (toggleSwitch.IsOn == true)
-            {
-                await BlynkLibrary.NetworkService.BlynkService.toggle(DataManager.navDevice.token,pinName ,"1");
-            }
-            else
-            {
-                await BlynkLibrary.NetworkService.BlynkService.toggle(DataManager.navDevice.token, pinName, "0");
             }
         }
     }

@@ -1,6 +1,7 @@
 ﻿using BlynkLibrary.Models;
 using BlynkLibrary.NetworkService;
 using Microsoft.Toolkit.Uwp;
+using Microsoft.Toolkit.Uwp.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,7 +59,7 @@ namespace BlynkLibrary.DataManager
         public static async Task<StatusCode> LoginAsync(string authToken)
         {
             proj = await BlynkService.Login(authToken);
-            if(proj.id == 0)
+            if(proj.Id == 0)
             {
                 var isInternet = await BlynkService.IsInternet();
                 if (!isInternet)
@@ -84,14 +85,14 @@ namespace BlynkLibrary.DataManager
                 }
             }
             authTokenStored = authToken;
-            await DataManager.SaveDataAsync();
+            await DataManager.SaveDataAsync(authToken);
             return StatusCode.Success;
         }
 
         public static async Task<StatusCode> RefreshAsync()
         {
             proj = await BlynkService.Login(authTokenStored);
-            if (proj.id == 0)
+            if (proj.Id == 0)
             {
                 var isInternet = await BlynkService.IsInternet();
                 if (!isInternet)
@@ -116,17 +117,18 @@ namespace BlynkLibrary.DataManager
                     return StatusCode.UnknownError;
                 }
             }
-            await DataManager.SaveDataAsync();
+            await DataManager.SaveDataAsync(authTokenStored);
             return StatusCode.Success;
         }
 
-        public static async Task<StatusCode> SaveDataAsync()
+        public static async Task<StatusCode> SaveDataAsync(string authToken)
         {
             try
             {
                 StorageFile data = await localFolder.CreateFileAsync("data.txt", CreationCollisionOption.ReplaceExisting);
                 var helper = new LocalObjectStorageHelper();
                 await helper.SaveFileAsync(keyLargeObject, proj);
+                await helper.SaveFileAsync("authToken.txt", authToken);
                 return StatusCode.Success;
             }
             catch (Exception)
@@ -143,7 +145,7 @@ namespace BlynkLibrary.DataManager
                 if(await helper.FileExistsAsync("data.txt"))
                 {
                     proj = await helper.ReadFileAsync<Project>(keyLargeObject);
-                    authTokenStored = proj.devices[1].token;
+                    authTokenStored = await helper.ReadFileAsync<string>("authToken.txt");
                     return StatusCode.Success;
                 }
                 else

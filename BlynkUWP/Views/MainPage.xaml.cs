@@ -33,7 +33,6 @@ namespace BlynkUWP
         public MainPage()
         {
             this.InitializeComponent();
-
         }
 
         private async void Login_Click(object sender, RoutedEventArgs e)
@@ -58,7 +57,7 @@ namespace BlynkUWP
             {
                 LoadingGrid.Visibility = Visibility.Collapsed;
                 LoginStack.Visibility = Visibility.Visible;
-                MessageDialog dialog = new MessageDialog(DataManager.proj.name);
+                MessageDialog dialog = new MessageDialog(DataManager.proj.Name);
                 await dialog.ShowAsync();
             }
         }
